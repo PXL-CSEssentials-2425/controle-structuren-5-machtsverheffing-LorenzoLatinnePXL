@@ -32,27 +32,40 @@ namespace Machtsverheffing
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
-            getalTextBox.Clear();
+            getalTextBox.Text = "1";
             resultTextBox.Clear();
         }
 
         private void calculateButton_Click(object sender, RoutedEventArgs e)
         {
+            resultTextBox.Clear();
             bool isValidInput = double.TryParse(getalTextBox.Text, out double input);
 
             if (isValidInput)
             {
-                for (int i = 1; i <= 10; i++)
+                if (input < 84 && input >= 0)
                 {
-                    double power = Convert.ToDouble(i);
-                    double macht = Math.Pow(input, power);
-                    resultTextBox.Text += $"Macht {i:00} van {input} is {macht}\n";
+                    for (int i = 1; i <= 10; i++)
+                    {
+                        double power = Convert.ToDouble(i);
+                        double macht = Math.Pow(input, power);
+                        resultTextBox.Text += $"Macht {i:00} van {input} is {macht}\n";
+                    }
                 }
-            } 
-            else
+                else
+                {
+                    resultTextBox.Text = "Getal moet positief zijn en kleiner dan 84.";
+                }
+            } else
             {
                 resultTextBox.Text = "Invalid input.";
             }
+
+        }
+
+        private void getalTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            getalTextBox.Text = "1";
         }
     }
 }
